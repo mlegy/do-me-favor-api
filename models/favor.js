@@ -25,7 +25,8 @@ const favorschema = new Schema({
   },
   is_done: {
     type: Boolean,
-    required: true
+    required: true,
+    default: false
   },
   created_at: Date,
   updated_at: Date
