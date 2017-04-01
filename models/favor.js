@@ -32,6 +32,10 @@ const favorschema = new Schema({
   updated_at: Date
 });
 
+favorschema.index({
+  'location': '2dsphere'
+});
+
 const Favor = mongoose.model('Favor', favorschema);
 
 module.exports = Favor;

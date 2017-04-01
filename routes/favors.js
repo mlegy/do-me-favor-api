@@ -4,9 +4,9 @@ const HTTPStatus = require('http-status');
 const api = require('../managers/favor-manager').api;
 
 router.get('/', function (req, res, next) {
-  return api.getAllFavorsNearBy(req.query.long, req.query.lat).then(favors => {
+  return api.getAllFavorsNearBy(req.query.long, req.query.lat, req.query.max_distance).then(favors => {
     if (favors) res.json(favors);
-    else res.sendStatus(HTTPStatus.NOT_FOUND).json({
+    else res.status(HTTPStatus.NOT_FOUND).json({
       error: 'not found'
     });
   }).catch(error => {
@@ -20,7 +20,7 @@ router.get('/', function (req, res, next) {
 router.get('/:id', function (req, res, next) {
   return api.getFavorById(req.params.id).then(favor => {
     if (favor) res.json(favor);
-    else res.sendStatus(HTTPStatus.NOT_FOUND).json({
+    else res.status(HTTPStatus.NOT_FOUND).json({
       error: 'not found'
     });
   }).catch(error => {
@@ -32,9 +32,9 @@ router.get('/:id', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  return api.addFavor(req.favor).then(favor => {
+  return api.addFavor(req.body.favor).then(favor => {
     if (favor) res.json(favor);
-    else res.sendStatus(HTTPStatus.BAD_REQUEST).json({
+    else res.status(HTTPStatus.BAD_REQUEST).json({
       error: 'favor not added'
     });
   }).catch(error => {
@@ -46,9 +46,9 @@ router.post('/', function (req, res, next) {
 });
 
 router.patch('/:id/benefactor', function (req, res, next) {
-  return api.addBenefactorToFavor(req.params.id, req.benefactor_id).then(favor => {
+  return api.addBenefactorToFavor(req.params.id, req.body.benefactor_id).then(favor => {
     if (favor) res.json(favor);
-    else res.sendStatus(HTTPStatus.BAD_REQUEST).json({
+    else res.status(HTTPStatus.BAD_REQUEST).json({
       error: 'favor not found'
     });
   }).catch(error => {
@@ -62,7 +62,7 @@ router.patch('/:id/benefactor', function (req, res, next) {
 router.patch('/:id/done', function (req, res, next) {
   return api.markFavorAsDone(req.params.id).then(favor => {
     if (favor) res.json(favor);
-    else res.sendStatus(HTTPStatus.BAD_REQUEST).json({
+    else res.status(HTTPStatus.BAD_REQUEST).json({
       error: 'favor not found'
     });
   }).catch(error => {

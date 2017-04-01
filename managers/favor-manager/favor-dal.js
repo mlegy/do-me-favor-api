@@ -5,7 +5,9 @@ const addFavor = function (favor) {
     title: favor.title,
     description: favor.description,
     owner: favor.owner,
-    location: favor.location,
+    location: {
+      coordinates: [favor.location.long, favor.location.lat]
+    },
     created_at: +new Date(),
     updated_at: +new Date()
   });
@@ -23,23 +25,18 @@ const getFavorById = function (favorId) {
     });
 };
 
-const getAllFavorsNearLocation = function (long, lat) {
-  return Favor.aggregate(
-    [{
-      '$geoNear': {
-        'near': {
-          'type': 'Point',
-          'coordinates': [long, lat]
-        },
-        'distanceField': 'distance',
-        'sperical': true,
-        'maxDistance': 10000
+const getAllFavorsNearLocation = function (long, lat, maxDistance) {
+  return Favor.aggregate([{
+    $geoNear: {
+      near: {
+        type: 'Point',
+        coordinates: [Number(long), Number(lat)]
       },
-      'is_done': false
-    }]
-  ).then(favors => {
-    if (favors) return favors;
-  });
+      distanceField: 'distance',
+      maxDistance: Number(maxDistance) * 1000, // to be in KM
+      spherical: true
+    }
+  }]);
 };
 
 const addBenefactorToFavor = function (favorId, benefactorId) {

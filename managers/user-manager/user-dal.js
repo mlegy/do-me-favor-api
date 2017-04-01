@@ -1,11 +1,14 @@
 const User = require('../../models/user');
+const LocationSchema = require('../../models/location');
 
 const addUser = function (user) {
   const newUser = User({
     first_name: user.first_name,
     last_name: user.last_name,
     email: user.email,
-    current_location: user.current_location,
+    current_location: {
+      coordinates: [user.current_location.long, user.current_location.lat]
+    },
     avatar: user.avatar,
     last_seen: +new Date(),
     created_at: +new Date(),
@@ -16,7 +19,7 @@ const addUser = function (user) {
 
 const getUserById = function (userID) {
   return User.findOne({
-      _id: user,
+      _id: userID,
     }, {
       __v: 0,
     })
@@ -26,9 +29,9 @@ const getUserById = function (userID) {
 };
 
 
-const getUserByEnail = function (userEmail) {
+const getUserByEmail = function (userEmail) {
   return User.findOne({
-      userEmail: userEmail,
+      email: userEmail,
     }, {
       __v: 0,
     })
@@ -41,7 +44,11 @@ const updateUserCurrentLocation = function (userID, currentLocation) {
   return User.findOneAndUpdate({
       _id: userID,
     }, {
-      current_location: currentLocation,
+      current_location: {
+        loc: {
+          coordinates: [currentLocation.long, currentLocation.lat]
+        }
+      },
     })
     .then(user => {
       if (user) return user;
@@ -53,6 +60,6 @@ const updateUserCurrentLocation = function (userID, currentLocation) {
 module.exports = {
   addUser: addUser,
   getUserById: getUserById,
-  getUserByEnail: getUserByEnail,
+  getUserByEmail: getUserByEmail,
   updateUserCurrentLocation: updateUserCurrentLocation
 };
