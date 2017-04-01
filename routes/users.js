@@ -6,7 +6,7 @@ const api = require('../managers/user-manager').api;
 router.get('/:id', function (req, res, next) {
   return api.getUserById(req.params.id).then(user => {
     if (user) res.json(user);
-    else res.sendStatus(HTTPStatus.NOT_FOUND).json({
+    else res.status(HTTPStatus.NOT_FOUND).json({
       error: 'not found'
     });
   }).catch(error => {
@@ -17,10 +17,10 @@ router.get('/:id', function (req, res, next) {
   });
 });
 
-router.get('/:email', function (req, res, next) {
+router.get('/email/:email', function (req, res, next) {
   return api.getUserByEmail(req.params.email).then(user => {
     if (user) res.json(user);
-    else res.sendStatus(HTTPStatus.NOT_FOUND).json({
+    else res.status(HTTPStatus.NOT_FOUND).json({
       error: 'not found'
     });
   }).catch(error => {
@@ -32,9 +32,9 @@ router.get('/:email', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  return api.addUser(req.user).then(user => {
+  return api.addUser(req.body.user).then(user => {
     if (user) res.json(user);
-    else res.sendStatus(HTTPStatus.BAD_REQUEST).json({
+    else res.status(HTTPStatus.BAD_REQUEST).json({
       error: 'user not added'
     });
   }).catch(error => {
@@ -46,7 +46,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.patch('/:id', function (req, res, next) {
-  return api.updateUserLocation(req.params.id, req.location).then(user => {
+  return api.updateUserLocation(req.params.id, req.body.location).then(user => {
     if (user) res.json(user);
     else res.sendStatus(HTTPStatus.BAD_REQUEST).json({
       error: 'user not found'

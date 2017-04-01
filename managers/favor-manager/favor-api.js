@@ -1,7 +1,7 @@
 const dal = require('./favor-dal');
 
-const getAllFavorsNearBy = function(long, lat){
-  return dal.getAllFavorsNearLocation(long, lat);
+const getAllFavorsNearBy = function(long, lat, maxDistance){
+  return dal.getAllFavorsNearLocation(long, lat, maxDistance);
 };
 
 const getFavorById = function(favorId){
