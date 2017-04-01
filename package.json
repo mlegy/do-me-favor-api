@@ -12,7 +12,6 @@
     "express": "~4.14.0",
     "http-status": "^1.0.0",
     "mongoose": "^4.8.1",
-    "mongoose-geojson-schema": "^2.1.2",
     "morgan": "~1.7.0"
   }
 }
