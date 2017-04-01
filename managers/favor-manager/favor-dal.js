@@ -71,5 +71,6 @@ module.exports = {
   addFavor: addFavor,
   getFavorById: getFavorById,
   addBenefactorToFavor: addBenefactorToFavor,
+  getAllFavorsNearLocation: getAllFavorsNearLocation,
   markFavorAsDone: markFavorAsDone
 };
