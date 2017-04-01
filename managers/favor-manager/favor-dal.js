@@ -1,4 +1,4 @@
-const Favor = require('../models/favor');
+const Favor = require('../../models/favor');
 
 const addFavor = function (favor) {
   const newFavor = Favor({
