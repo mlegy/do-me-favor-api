@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-const databaseUri = 'mongodb://localhost/do-me-favor-testing';
+const databaseUri = process.env.DB_URI;
 mongoose.connect(databaseUri);
 
 app.use('*', authenticate);

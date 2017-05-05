@@ -19,6 +19,8 @@ const getFavorById = function (favorId) {
       _id: favorId,
     }, {
       __v: 0,
+    }).populate({
+      path: 'owner'
     })
     .then(favor => {
       if (favor) return favor;
@@ -36,7 +38,14 @@ const getAllFavorsNearLocation = function (long, lat, maxDistance) {
       maxDistance: Number(maxDistance) * 1000, // to be in KM
       spherical: true
     }
-  }]);
+  }]).then(favors => {
+    return Favor.populate(favors, {
+      path: 'owner',
+      select: {
+        first_name: 1
+      }
+    });
+  });
 };
 
 const addBenefactorToFavor = function (favorId, benefactorId) {
