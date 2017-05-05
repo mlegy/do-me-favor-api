@@ -44,7 +44,8 @@ const getAllFavorsNearLocation = function (long, lat, maxDistance) {
       select: {
         first_name: 1,
         last_name: 1,
-        email: 1
+        email: 1,
+        avatar: 1
       }
     });
   });
