@@ -42,7 +42,9 @@ const getAllFavorsNearLocation = function (long, lat, maxDistance) {
     return Favor.populate(favors, {
       path: 'owner',
       select: {
-        first_name: 1
+        first_name: 1,
+        last_name: 1,
+        email: 1
       }
     });
   });
