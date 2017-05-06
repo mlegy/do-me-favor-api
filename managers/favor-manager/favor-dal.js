@@ -38,6 +38,10 @@ const getAllFavorsNearLocation = function (long, lat, maxDistance) {
       maxDistance: Number(maxDistance) * 1000, // to be in KM
       spherical: true
     }
+  }, {
+    $sort: {
+      distance: 1
+    }
   }]).then(favors => {
     return Favor.populate(favors, {
       path: 'owner',
