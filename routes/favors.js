@@ -33,7 +33,9 @@ router.get('/:id', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
   return api.addFavor(req.body).then(favor => {
-    if (favor) res.json(favor);
+    if (favor && favor._id) res.json({
+      favor: favor
+    });
     else res.status(HTTPStatus.BAD_REQUEST).json({
       error: 'favor not added'
     });
@@ -47,7 +49,9 @@ router.post('/', function (req, res, next) {
 
 router.patch('/:id/benefactor', function (req, res, next) {
   return api.addBenefactorToFavor(req.params.id, req.body.benefactor_id).then(favor => {
-    if (favor) res.json(favor);
+    if (favor && favor._id) res.json({
+      favor: favor
+    });
     else res.status(HTTPStatus.BAD_REQUEST).json({
       error: 'favor not found'
     });
@@ -61,7 +65,9 @@ router.patch('/:id/benefactor', function (req, res, next) {
 
 router.patch('/:id/done', function (req, res, next) {
   return api.markFavorAsDone(req.params.id).then(favor => {
-    if (favor) res.json(favor);
+    if (favor && favor._id) res.json({
+      favor: favor
+    });
     else res.status(HTTPStatus.BAD_REQUEST).json({
       error: 'favor not found'
     });
