@@ -32,7 +32,7 @@ router.get('/:id', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  return api.addFavor(req.body.favor).then(favor => {
+  return api.addFavor(req.body).then(favor => {
     if (favor) res.json(favor);
     else res.status(HTTPStatus.BAD_REQUEST).json({
       error: 'favor not added'

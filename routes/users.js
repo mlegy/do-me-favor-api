@@ -32,7 +32,7 @@ router.get('/email/:email', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  return api.addUser(req.body.user).then(user => {
+  return api.addUser(req.body).then(user => {
     if (user) res.json(user);
     else res.status(HTTPStatus.BAD_REQUEST).json({
       error: 'user not added'
