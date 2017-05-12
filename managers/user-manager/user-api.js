@@ -1,7 +1,10 @@
 const dal = require('./user-dal');
 
 const addUser = function (user) {
-  return dal.addUser(user);
+  return getUserByEmail(user.email).then(foundUser => {
+    if (foundUser && foundUser._id) return foundUser;
+    else return dal.addUser(user);
+  });
 };
 
 const getUserById = function (userId) {
