@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const Favor = require('../../models/favor');
 
 const addFavor = function (favor) {
@@ -43,7 +44,10 @@ const getAllFavorsNearLocation = function (long, lat, maxDistance) {
       distance: 1
     }
   }]).then(favors => {
-    return Favor.populate(favors, {
+    let undoneFavors = _.filter(favors, favor => {
+      return favor.is_done === false;
+    });
+    return Favor.populate(undoneFavors, {
       path: 'owner',
       select: {
         first_name: 1,
