@@ -15,10 +15,6 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  current_location: {
-    type: LocationSchema,
-    required: true
-  },
   frequents_location: [LocationSchema],
   avatar: String,
   favors: [{

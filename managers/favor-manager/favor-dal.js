@@ -9,8 +9,8 @@ const addFavor = function (favor) {
     location: {
       coordinates: [favor.location.long, favor.location.lat]
     },
-    created_at: +new Date(),
-    updated_at: +new Date()
+    created_at: new Date().getDate(),
+    updated_at: new Date().getDate()
   });
   return newFavor.save();
 };

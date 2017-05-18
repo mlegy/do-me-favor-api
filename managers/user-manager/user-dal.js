@@ -6,13 +6,10 @@ const addUser = function (user) {
     first_name: user.first_name,
     last_name: user.last_name,
     email: user.email,
-    current_location: {
-      coordinates: [user.current_location.long, user.current_location.lat]
-    },
     avatar: user.avatar,
-    last_seen: +new Date(),
-    created_at: +new Date(),
-    updated_at: +new Date()
+    last_seen: new Date().getDate(),
+    created_at: new Date().getDate(),
+    updated_at: new Date().getDate()
   });
   return newUser.save();
 };
